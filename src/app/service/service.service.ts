@@ -13,9 +13,6 @@ export class ServiceService{
     return this.http.get(API_URLS.SERVICE_URL);
   }
   
-  findServiceById(id :string):Observable<any>{
-    return this.http.get(API_URLS.SERVICEBYID_URL,{ params: new HttpParams().set('id', id) });
-  }
  
   getEmpnoParServices(id: string): Observable<any> {
     return this.http.get(API_URLS.EMPLOYEBYSERVICE_URL, { params: new HttpParams().set('idS', id) });
@@ -24,4 +21,8 @@ export class ServiceService{
   CountEmpnoParServices(): Observable<any> {
     return this.http.get(API_URLS.CHART_URL);
   }
+
+  getServiceById(id:string): Observable<any>{
+    return this.http.get(API_URLS.SERVICEBYID_URL,{ params: new HttpParams().set('id', id) });
+}
 }

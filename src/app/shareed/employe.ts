@@ -6,7 +6,7 @@ export class Employe{
                 public prenom?: string,
                 public email?: string,
                 public tel?: String,
-                public service?:Service
+                public service?:any
   
     ){
   

@@ -1,9 +1,6 @@
 
   
-  <select class="form-control" formControlName="idService" [(ngModel)]="selectedEmploye.idService.id"
-  (change)="findServiceById($event.target.value)" >
-        <option value="{{service.id}}" *ngFor="let service of services">{{service.nom}}</option>
-    </select> 
+  
 
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
     <div class="row">
@@ -33,7 +30,7 @@
                   <td> {{employe.prenom}}</td>
                   <td> {{employe.email}}</td>
                   <td> {{employe.telephone}}</td>
-                  <td> {{employe.idService.id}}</td>
+                  <td> {{employe.service.nom}}</td>
                     <td>
                       <button class="btn btn-outline-primary" (click)="operation = 'edit'; selectedEmploye=employe;">Modifier</button>
                       <button class="btn btn-outline-danger" (click)="operation = 'remove';selectedEmploye=employe;">Supprimer</button>
@@ -74,8 +71,12 @@
                       <label > telephone</label>
                       <input type="text" class="form-control" formControlName="telephone" [(ngModel)] = "selectedEmploye.telephone"/>
                       <label > Service</label>
-                      <input type="text" class="form-control" formControlName="idService" [(ngModel)] = "selectedEmploye.idService.id"/>
-                    
+                     
+                     
+                      <select class="form-control" formControlName="service" [(ngModel)]="selectedEmploye.service"
+                      (change)="findServiceById(selectedEmploye.service)">
+                            <option value="{{service.id}}" *ngFor="let service of services">{{service.nom}}</option>
+                        </select>
                      
                       
                     </div>

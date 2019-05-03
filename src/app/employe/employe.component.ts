@@ -47,29 +47,36 @@ export class EmployeComponent implements OnInit{
           prenom :'',
           email :'',
           telephone:'',
-          idService:''
+          service:''
 
         });
       }
 
       addEmploye(){
-        const p= this.employeForm.value;
-        this.employeService.addEmploye(p).subscribe(
+        console.log('service  '+this.selectedEmploye.service)
+        const s = this.employeForm.value;
+        console.log('find by ' + this.findServiceById(this.selectedEmploye.service));
+        if(this.findServiceById(this.selectedEmploye.service.nom)!=null){
+          s.service = this.findServiceById(this.selectedEmploye.service);
+        }    
+        this.employeService.addEmploye(s).subscribe(    
           res => {
-            
             this.initEmploye();
-            
-            this. loadService();
+            this.loadEmploye();
           }
+         
         );
       }
 
       updateEmploye(){
+        if(this.findServiceById(this.selectedEmploye.service)!=null){
+          this.selectedEmploye.service = this.findServiceById(this.selectedEmploye.service);
+        }  
         this.employeService.updateEmploye(this.selectedEmploye).subscribe(
           res => {
-            
             this.initEmploye();
-            this. loadEmploye();
+            this.loadEmploye();
+            this.operation="add";
           }
         );
       }
@@ -114,15 +121,14 @@ export class EmployeComponent implements OnInit{
         this.createForm();
        
       }
-      findServiceById(id:any)
-      {
-        this.serviceService.findServiceById(id).subscribe(
-          data =>{this.service =  data;
-          console.log(data);},
-          error  =>{console.log('erreur')},
-
-          ()=>{console.log('Chargement service effectuer'+this.service.nom)}
+      findServiceById(id:string):any{
+        console.log('service  '+this.selectedEmploye.service)
+         this.serviceService.getServiceById(id).subscribe(
+          data => {this.service = data},
+          error => {console.log('erreurrrrrrrr !')},
+          () => {console.log('Le chargement des services est terminé'+this.service.nom)}
         );
+        return this.service;
       }
 
       
